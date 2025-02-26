@@ -16,7 +16,12 @@ const Weather = () => {
     setWeather(null);
 
     try {
-      const API_KEY = "YOUR_API_KEY";
+      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+      if (!API_KEY) {
+        setError("Ошибка: API-ключ не найден.");
+        return;
+      }
+
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}&lang=ru`
       );
